@@ -74,7 +74,7 @@ func (c *revokeCommand) run(ctx *cli.Context) {
 
 	revoked = append(revoked, x509pkix.RevokedCertificate{
 		SerialNumber:   cnCert.SerialNumber,
-		RevocationTime: time.Now(),
+		RevocationTime: nowFunc(),
 	})
 
 	err = c.saveRevokedCertificates(caCert, revoked)
@@ -117,7 +117,7 @@ func (c *revokeCommand) saveRevokedCertificates(cert *x509.Certificate, list []x
 		return fmt.Errorf("could not get %q private key: %v", c.ca, err)
 	}
 
-	crlBytes, err := cert.CreateCRL(rand.Reader, priv.Private, list, time.Now(), time.Now().Add(2*8760*time.Hour))
+	crlBytes, err := cert.CreateCRL(rand.Reader, priv.Private, list, nowFunc(), nowFunc().Add(2*8760*time.Hour))
 	if err != nil {
 		return fmt.Errorf("could not create CRL: %v", err)
 	}

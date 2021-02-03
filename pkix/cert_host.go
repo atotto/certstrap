@@ -35,7 +35,7 @@ func CreateCertificateHost(crtAuth *Certificate, keyAuth *Key, csr *CertificateS
 		// **SHOULD** be filled in host info
 		Subject: pkix.Name{},
 		// NotBefore is set to be 10min earlier to fix gap on time difference in cluster
-		NotBefore: time.Now().Add(-10*time.Minute).UTC(),
+		NotBefore: TimeNow().Add(-10 * time.Minute).UTC(),
 		// 10-year lease
 		NotAfter: time.Time{},
 		// Used for certificate signing only
@@ -78,7 +78,7 @@ func CreateCertificateHost(crtAuth *Certificate, keyAuth *Key, csr *CertificateS
 	// RawSubject has a value.
 	hostTemplate.RawSubject = rawCsr.RawSubject
 
-	caExpiry := time.Now().Add(crtAuth.GetExpirationDuration())
+	caExpiry := TimeNow().Add(crtAuth.GetExpirationDuration())
 	// ensure cert doesn't expire after issuer
 	if caExpiry.Before(proposedExpiry) {
 		hostTemplate.NotAfter = caExpiry

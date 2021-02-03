@@ -7,8 +7,6 @@ import (
 	"time"
 )
 
-var nowFunc = time.Now
-
 func parseExpiry(fromNow string) (time.Time, error) {
 	now := nowFunc().UTC()
 	re := regexp.MustCompile(`\s*(\d+)\s*(day|month|year|hour|minute|second)s?`)

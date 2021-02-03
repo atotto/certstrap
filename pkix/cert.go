@@ -122,7 +122,7 @@ func (c *Certificate) VerifyHost(hostCert *Certificate, name string) error {
 		Intermediates: nil,
 		Roots:         roots,
 		// if zero, the current time is used
-		CurrentTime: time.Now(),
+		CurrentTime: TimeNow(),
 		// An empty list means ExtKeyUsageServerAuth.
 		KeyUsages: nil,
 	}

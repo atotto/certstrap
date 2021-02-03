@@ -104,7 +104,7 @@ func TestCertificateAuthority(t *testing.T) {
 
 	duration := crt.GetExpirationDuration()
 	expireDate, _ := time.Parse("2006-Jan-02", "2024-Feb-03")
-	if !time.Now().Add(duration).After(expireDate) {
+	if !TimeNow().Add(duration).After(expireDate) {
 		t.Fatal("Failed to get correct expiration")
 	}
 

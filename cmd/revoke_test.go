@@ -75,7 +75,7 @@ func setupCA(t *testing.T, dt depot.Depot) {
 	}
 
 	// create certificate authority
-	caCert, err := pkix.CreateCertificateAuthority(key, caName, time.Now().Add(1*time.Minute), "", "", "", "", caName, nil, nil)
+	caCert, err := pkix.CreateCertificateAuthority(key, caName, nowFunc().Add(1*time.Minute), "", "", "", "", caName, nil, nil)
 	if err != nil {
 		t.Fatalf("could not create authority cert: %v", err)
 	}
@@ -84,7 +84,7 @@ func setupCA(t *testing.T, dt depot.Depot) {
 	}
 
 	// create an empty certificate revocation list
-	crl, err := pkix.CreateCertificateRevocationList(key, caCert, time.Now().Add(1*time.Minute))
+	crl, err := pkix.CreateCertificateRevocationList(key, caCert, nowFunc().Add(1*time.Minute))
 	if err != nil {
 		t.Fatalf("could not create crl: %v", err)
 	}
@@ -113,7 +113,7 @@ func setupCN(t *testing.T, dt depot.Depot) {
 		t.Fatalf("could not get cert: %v", err)
 	}
 
-	cnCert, err := pkix.CreateCertificateHost(caCert, key, csr, time.Now().Add(1*time.Hour))
+	cnCert, err := pkix.CreateCertificateHost(caCert, key, csr, nowFunc().Add(1*time.Hour))
 	if err != nil {
 		t.Fatalf("could not create cert host: %v", err)
 	}

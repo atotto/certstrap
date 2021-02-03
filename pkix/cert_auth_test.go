@@ -19,7 +19,6 @@ package pkix
 
 import (
 	"testing"
-	"time"
 )
 
 func TestCreateCertificateAuthority(t *testing.T) {
@@ -28,7 +27,7 @@ func TestCreateCertificateAuthority(t *testing.T) {
 		t.Fatal("Failed creating rsa key:", err)
 	}
 
-	crt, err := CreateCertificateAuthority(key, "OU", time.Now().AddDate(5, 0, 0), "test", "US", "California", "San Francisco", "CA Name", []string{".example.com"}, []string{"www.example.com"})
+	crt, err := CreateCertificateAuthority(key, "OU", TimeNow().AddDate(5, 0, 0), "test", "US", "California", "San Francisco", "CA Name", []string{".example.com"}, []string{"www.example.com"})
 	if err != nil {
 		t.Fatal("Failed creating certificate authority:", err)
 	}
@@ -45,11 +44,11 @@ func TestCreateCertificateAuthority(t *testing.T) {
 		t.Fatal("Failed to verify hostname:", err)
 	}
 
-	if !time.Now().After(rawCrt.NotBefore) {
+	if !TimeNow().After(rawCrt.NotBefore) {
 		t.Fatal("Failed to be after NotBefore")
 	}
 
-	if !time.Now().Before(rawCrt.NotAfter) {
+	if !TimeNow().Before(rawCrt.NotAfter) {
 		t.Fatal("Failed to be before NotAfter")
 	}
 

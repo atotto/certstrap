@@ -91,7 +91,7 @@ func CreateIntermediateCertificateAuthority(crtAuth *Certificate, keyAuth *Key, 
 
 	authTemplate.RawSubject = rawCsr.RawSubject
 
-	caExpiry := time.Now().Add(crtAuth.GetExpirationDuration())
+	caExpiry := TimeNow().Add(crtAuth.GetExpirationDuration())
 	// ensure cert doesn't expire after issuer
 	if caExpiry.Before(proposedExpiry) {
 		authTemplate.NotAfter = caExpiry
@@ -126,7 +126,7 @@ func newAuthTemplate() x509.Certificate {
 	return x509.Certificate{
 		SerialNumber: big.NewInt(1),
 		// NotBefore is set to be 10min earlier to fix gap on time difference in cluster
-		NotBefore: time.Now().Add(-10*time.Minute).UTC(),
+		NotBefore: TimeNow().Add(-10 * time.Minute).UTC(),
 		NotAfter:  time.Time{},
 		// Used for certificate signing only
 		KeyUsage: x509.KeyUsageCertSign | x509.KeyUsageCRLSign,

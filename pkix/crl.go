@@ -36,7 +36,7 @@ func CreateCertificateRevocationList(key *Key, ca *Certificate, expiry time.Time
 		return nil, err
 	}
 
-	crlBytes, err := rawCrt.CreateCRL(rand.Reader, key.Private, []pkix.RevokedCertificate{}, time.Now(), expiry)
+	crlBytes, err := rawCrt.CreateCRL(rand.Reader, key.Private, []pkix.RevokedCertificate{}, TimeNow(), expiry)
 	if err != nil {
 		return nil, err
 	}

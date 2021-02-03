@@ -20,7 +20,6 @@ package pkix
 import (
 	"bytes"
 	"testing"
-	"time"
 )
 
 const (
@@ -49,11 +48,11 @@ func TestCreateCertificateRevocationList(t *testing.T) {
 		t.Fatal("Failed creating rsa key:", err)
 	}
 
-	crt, err := CreateCertificateAuthority(key, "OU", time.Now().AddDate(5, 0, 0), "test", "US", "California", "San Francisco", "CA Name", nil, nil)
+	crt, err := CreateCertificateAuthority(key, "OU", TimeNow().AddDate(5, 0, 0), "test", "US", "California", "San Francisco", "CA Name", nil, nil)
 	if err != nil {
 		t.Fatal("Failed creating certificate authority:", err)
 	}
-	_, err = CreateCertificateRevocationList(key, crt, time.Now().AddDate(5, 0, 0))
+	_, err = CreateCertificateRevocationList(key, crt, TimeNow().AddDate(5, 0, 0))
 	if err != nil {
 		t.Fatal("Failed creating crl:", err)
 	}
